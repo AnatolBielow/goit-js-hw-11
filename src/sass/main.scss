@@ -1,7 +1,136 @@
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
 
-// Стили для файла с примером HTML-фрагмента
-@import './example';
+:root {
+    --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-duration: 250ms;
+  }
+  html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+.container {
+    min-height:100%;
+		position:relative;
+}
+button {
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0 20px 20px 0;
+}
+  .gallery {
+    display: grid;
+    
+    max-width: 1140px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-auto-rows: 320px;
+    grid-gap: 12px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .photo-card {
+    position: relative;
+   
+    height: 320px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    
+  }
+  
+  .photo-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .photo-card_img {
+     height: 250px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform var(--animation-duration) var(--timing-function);
+  }
+  
+  .gallery__link {
+    display: block;
+    text-decoration: none;
+    height: 100%;
+  }
+  
+  .gallery__link:hover {
+    cursor: zoom-in;
+  }
+  .info {
+      display: flex;
+      text-align: center;
+      justify-content: space-around;
+  }
+  .info-item {
+      display: block;
+      font-size: 14px;
+  }
+  
+  input {
+      height: 40px;
+      border-radius: 20px 0 0 20px;
+      padding-left: 10px;
+  }
+  .search-form {
+     text-align: center;
+     padding: 20px;
+     
+  }
+  .btn-load-more {
+      display: block;
+      text-align: center;
+    margin: 20px auto;
+    border-radius: 20px;
+  }
+
+.is-hidden {
+      display: none;
+  }
+  $color-animation-left--one: #cef3ff;
+$color-animation-left--two: #c0efff;
+$color-animation-left--three: #d9f5ff;
+
+@mixin wave {
+    position: absolute;
+    z-index: -1;
+    top: -1650px;
+    left: calc((100% - 1800px)/2);
+    background: $color-animation-left--one;
+    width: 1800px;
+    height: 1800px;
+    border-radius: 43%;
+    animation: drift 18000ms infinite linear;
+}
+
+.wave {
+    @include wave;
+
+    &-wrapper {
+        z-index: -1;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 400px;
+        pointer-events: none;
+    }
+    &-two {
+        background: $color-animation-left--two;
+        animation-duration: 23000ms;
+        left: calc((100% - 1800px)/2 + 200px);
+    }
+
+    &-three {
+        background: $color-animation-left--three;
+        animation-duration: 20000ms;
+        left: calc((100% - 1800px)/2 - 200px);
+    }
+}
+
+@keyframes drift {
+    from { transform: rotate(0deg); }
+    from { transform: rotate(360deg); }
+}
