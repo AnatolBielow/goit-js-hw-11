@@ -20,13 +20,13 @@ refs.loadMoreBtn.addEventListener('click', onLoadMore);
 async function onSearch(evt) {
   
   evt.preventDefault();
-  galleryApiService.searchQuery = evt.currentTarget.elements.searchQuery.value;
+  galleryApiService.searchQuery = evt.currentTarget.elements.searchQuery.value.trim();
   refs.submitBth.setAttribute('disabled',true);
 
   refs.searchForm.addEventListener('input', evt => {
   refs.submitBth.removeAttribute('disabled')
   })
-    
+
   clearGallery();
   
   const response = await galleryApiService.fetchGallery();
@@ -41,9 +41,12 @@ async function onSearch(evt) {
         return;
     }
       if (galleryApiService.searchQuery === '') {
-    Notify.info(`You have not entered any data. These are sample photos. Please specify your choice!`);
-    renderGallery(response)
-
+    // Notify.info(`You have not entered any data. These are sample photos. Please specify your choice!`);
+    // renderGallery(response)
+        Notify.failure('You have not entered any data. Please specify your choice!')
+        galleryApiService.resetPage();
+        clearGallery();
+        return;
       }
       else {
       Notify.success(`Hooray! We found ${totalHits} images.`);
